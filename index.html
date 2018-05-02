@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="manifest.json">
+<title>PWA Sample</title>
+</head>
+<body>
+pwa test
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+  };
+  firebase.initializeApp(config);
+</script>
+
+
+
+<script>
+var messaging = firebase.initializeApp({
+    apiKey: "AIzaSyDrQ78RHhvAQXqVtEpE2il1mIGJXagIv5Q",
+    authDomain: "fir-test-b4e20.firebaseapp.com",
+    databaseURL: "https://fir-test-b4e20.firebaseio.com",
+    projectId: "fir-test-b4e20",
+    storageBucket: "fir-test-b4e20.appspot.com",
+    messagingSenderId: "899209299549"
+}).messaging();
+var serviceWorker = navigator.serviceWorker;
+
+messaging.requestPermission();
+
+serviceWorker.register('serviceworker.js').then(() => {
+    return serviceWorker.ready;
+}).then(regist => {
+    messaging.useServiceWorker(regist);
+    messaging.requestPermission().then(() => {
+        messaging.getToken().then(token => {
+            console.log(token);
+        });
+    });
+});
+</script>
+
+<!-- /Firebase -->
+
+</body>
+</html>
