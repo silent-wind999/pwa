@@ -1,7 +1,7 @@
 {
     "short_name": "PWAサンプル",
     "name": "PWAサンプルアプリ",
-    "gcm_sender_id": "899209299549",
+    "gcm_sender_id": "103953800507",
     "display": "standalone",
     "start_url": "index.html",
     "icons": [
