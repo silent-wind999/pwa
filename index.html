@@ -22,6 +22,18 @@ var messaging = firebase.initializeApp({
 }).messaging();
 var serviceWorker = navigator.serviceWorker;
 
+// Get a reference to the database service：firebaseデータベース読み書きに必要なインスタンス
+// TODO 別途公開アクセスルールを設定する必要がある
+// https://firebase.google.com/docs/database/security/quickstart?hl=ja#sample-rules
+var database = firebase.database();
+
+// data set
+function writeUserData(inToken) {
+    firebase.database().ref(inToken).set({
+        token: inToken
+    });
+}
+
 messaging.requestPermission();
 
 serviceWorker.register('serviceworker.js').then(() => {
@@ -30,6 +42,7 @@ serviceWorker.register('serviceworker.js').then(() => {
     messaging.useServiceWorker(regist);
     messaging.requestPermission().then(() => {
         messaging.getToken().then(token => {
+            writeUserData(token);
             console.log(token);
         });
     });
